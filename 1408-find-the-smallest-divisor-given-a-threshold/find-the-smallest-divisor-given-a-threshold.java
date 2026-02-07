@@ -1,8 +1,8 @@
 class Solution {
     public int smallestDivisor(int[] nums, int threshold) {
-        int low = 1, high = 0;
+        int low = 1, high = nums[0];
         for (int num : nums) {
-            high = Math.max(high, num);
+            if(num > high) high = num;
         }
 
         int ans = high;
