@@ -4,23 +4,24 @@ class Solution {
     public int[] frequencySort(int[] nums) {
         HashMap<Integer, Integer> map = new HashMap<>();
         
-        // Step 1: Count frequency
-        for (int num : nums) {
-            map.put(num, map.getOrDefault(num, 0) + 1);
+        Integer[] newnums = new Integer[nums.length];
+
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], map.getOrDefault(nums[i], 0) +  1);
+            newnums[i] = nums[i];
         }
-        
-        // Step 2: Convert to Integer array for sorting
-        Integer[] arr = Arrays.stream(nums).boxed().toArray(Integer[]::new);
-        
-        // Step 3: Custom sort
-        Arrays.sort(arr, (a, b) -> {
-            if (map.get(a).equals(map.get(b))) {
-                return b - a;  // Decreasing value if frequency same
+
+        Arrays.sort(newnums, (n1, n2) -> {
+            if(map.get(n1) != map.get(n2)) {
+                return map.get(n1) - map.get(n2);
+            } else {
+                return n2 - n1;
             }
-            return map.get(a) - map.get(b); // Increasing frequency
         });
-        
-        // Step 4: Convert back to int[]
-        return Arrays.stream(arr).mapToInt(i -> i).toArray();
+
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] = newnums[i];
+        }
+        return nums;
     }
 }
