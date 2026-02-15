@@ -1,15 +1,16 @@
-import java.util.Arrays;
-
 class Solution {
     public void moveZeroes(int[] nums) {
-        int nonZeroPosition = 0;
-        for(int index = 0; index < nums.length; index++){
-            if(nums[index] != 0){
-                int temp = nums[index];
-                nums[index] = nums[nonZeroPosition];
-                nums[nonZeroPosition] = temp;
-                nonZeroPosition++;
+        int i = 0;
+        int j = 0;
+        while(j < nums.length){
+            if(nums[j] != 0){
+                int temp = nums[j];
+                nums[j] = nums[i];
+                nums[i] = temp;
+                i++;
             }
+            j++;
         }
+        return;
     }
 }
