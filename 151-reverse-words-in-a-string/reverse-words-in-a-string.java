@@ -14,7 +14,7 @@ class Solution {
             // Find word start
             while (i >= 0 && s.charAt(i) != ' ') i--;
 
-            // Append word
+            // Append words
             sb.append(s.substring(i + 1, j + 1));
             sb.append(" ");
         }
