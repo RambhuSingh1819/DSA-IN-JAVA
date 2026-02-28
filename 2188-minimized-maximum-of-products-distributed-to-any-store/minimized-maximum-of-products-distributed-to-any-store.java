@@ -3,9 +3,7 @@ class Solution {
 
         int low = 1;
         int high = 0;
-        for(int ele : quantities){
-           high = Math.max(ele,high);
-        }
+        for(int ele : quantities) high = Math.max(ele,high);
         int ans = high;
         while(low <= high){
             int mid = low + (high - low) / 2;
@@ -20,8 +18,7 @@ class Solution {
         int sum = 0;
         for(int i : nums){
             sum += (i+mid-1)/mid;
-            if(sum > n) return false;
         }
-        return true;
+        return sum <= n;
     }
 }
