@@ -1,8 +1,8 @@
 class Solution {
     public long repairCars(int[] ranks, int cars) {
         long low = 1;
-        long max = Integer.MIN_VALUE;
-        for(int i : ranks) max = Math.max(max,i);
+        long max = Integer.MAX_VALUE;
+        for(int i : ranks) max = Math.min(max,i);
         long  high = max*cars*cars;
         long ans = high;
         while(low <= high){
