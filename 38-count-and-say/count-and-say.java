@@ -1,24 +1,21 @@
 class Solution {
-    public String countAndSay(int n) {
-        String result = "1";
+     public String countAndSay(int n) {
+        return rle("1", n-1);
+    }
 
-        for (int i = 2; i <= n; i++) {
-            StringBuilder temp = new StringBuilder();
-            int count = 1;
-
-            for (int j = 1; j < result.length(); j++) {
-                if (result.charAt(j) == result.charAt(j - 1)) {
-                    count++;
-                } else {
-                    temp.append(count).append(result.charAt(j - 1));
-                    count = 1;
-                }
+    public String rle(String n, int l) {
+        if(l==0)return n;
+        int i = 0;
+        StringBuilder k = new StringBuilder();
+        while (i < n.length()) {
+            int len = 1;
+            while (i + 1 < n.length() && n.charAt(i + 1) == n.charAt(i)) {
+                len++;
+                i++;
             }
-
-            temp.append(count).append(result.charAt(result.length() - 1));
-            result = temp.toString();
+            k.append(len);
+            k.append(n.charAt(i++));
         }
-
-        return result;
+        return rle(k.toString(), l-1);
     }
 }
