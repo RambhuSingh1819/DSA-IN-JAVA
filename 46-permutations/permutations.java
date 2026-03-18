@@ -4,28 +4,24 @@ class Solution {
 
         List<List<Integer>> res = new ArrayList<>();
 
-        backtrack(nums, new ArrayList<>(), res);
+        backtrack(nums, new ArrayList<>(), res,new boolean [nums.length]);
 
         return res;
     }
 
-    void backtrack(int[] nums, List<Integer> curr, List<List<Integer>> res){
-
+    void backtrack(int[] nums, List<Integer> curr, List<List<Integer>> res,boolean used[]){
         if(curr.size() == nums.length){
             res.add(new ArrayList<>(curr));
             return;
         }
-
-        for(int num : nums){
-
-            if(curr.contains(num))
-                continue;
-
-            curr.add(num);
-
-            backtrack(nums, curr, res);
-
-            curr.remove(curr.size()-1);
+        for(int i = 0; i < nums.length; i++){
+            if(!used[i]){
+                used[i] = true;
+                curr.add(nums[i]);
+                backtrack(nums,curr,res,used);
+                curr.remove(curr.size()-1);
+                used[i] = false;
+            }
         }
     }
 }
