@@ -1,5 +1,5 @@
 class MinStack {
-    private Stack<int[]> stk; // each element: {value, currentMin}
+    private Stack<int[]> stk;
 
     public MinStack() {
         stk = new Stack<>();
