@@ -1,50 +1,41 @@
 class Solution {
     public int sumSubarrayMins(int[] arr) {
+        int mod = 1_000_000_007;
         int n = arr.length;
 
-        int[] pse = PSE(arr);
-        int[] nse = NSE(arr);
+        int pse[] = new int[n];
+        int nse[] = new int[n];
 
-        long total = 0;
-        int mod = (int)(1e9 + 7);
+        Stack<Integer> stack = new Stack<>();
 
         for (int i = 0; i < n; i++) {
-            int left = i - pse[i];
-            int right = nse[i] - i;
+            while (!stack.isEmpty() && arr[stack.peek()] > arr[i]) {
+                stack.pop();
+            }
 
-            total = (total + (left * 1L * right * arr[i]) % mod) % mod;
+            pse[i] = stack.isEmpty() ? -1 : stack.peek();
+            stack.push(i);
         }
 
-        return (int) total;
-    }
-    public int[] NSE(int[] arr) {
-        int n = arr.length;
-        Stack<Integer> stk = new Stack<>();
-        int[] ans = new int[n];
+        stack.clear();
 
         for (int i = n - 1; i >= 0; i--) {
-            while (!stk.isEmpty() && arr[stk.peek()] >= arr[i]) {
-                stk.pop();
+            while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) {
+                stack.pop();
             }
-            ans[i] = stk.isEmpty() ? n : stk.peek();
-            stk.push(i);
+
+            nse[i] = stack.isEmpty() ? n : stack.peek();
+            stack.push(i);
         }
 
-        return ans;
-    }
-    public int[] PSE(int[] arr) {
-        int n = arr.length;
-        Stack<Integer> stk = new Stack<>();
-        int[] ans = new int[n];
-
+        long sum = 0L;
         for (int i = 0; i < n; i++) {
-            while (!stk.isEmpty() && arr[stk.peek()] > arr[i]) {
-                stk.pop();
-            }
-            ans[i] = stk.isEmpty() ? -1 : stk.peek();
-            stk.push(i);
+            long left = i - pse[i];
+            long right = nse[i] - i;
+            sum = (sum + arr[i] * left * right) % mod; 
         }
 
-        return ans;
+        return (int) sum;
+
     }
 }
