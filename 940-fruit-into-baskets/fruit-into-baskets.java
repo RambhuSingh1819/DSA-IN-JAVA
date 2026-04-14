@@ -26,6 +26,9 @@ class Solution {
 
         // return maxLen;
 
+    //Kepping the maxLen fixed approch;
+   // TC(N)
+
         while(r < n){
             map.put(fruits[r], map.getOrDefault(fruits[r], 0) + 1);
             if(map.size() > 2) {
