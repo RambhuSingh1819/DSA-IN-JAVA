@@ -5,19 +5,35 @@ class Solution {
         int zero = 0;
         int maxLen = 0;
 
+        //TC(2N)
+        // while(r < n){
+        //     if(nums[r] == 0) zero++;
+
+        //     while(zero > k){
+        //         if(nums[l] == 0) zero--;
+        //         l++; 
+        //     }
+        //     int len = r - l + 1;
+        //     maxLen = Math.max(maxLen, len);
+
+        //     r++;
+        // }
+        // return maxLen;
+
         while(r < n){
             if(nums[r] == 0) zero++;
-
-            while(zero > k){
-                if(nums[l] == 0) zero--;
-                l++; 
+            if(zero > k ){
+                if(nums[l] == 0)
+                zero--;
+                l++;
             }
-
-            int len = r - l + 1;
-            maxLen = Math.max(maxLen, len);
-
+            if(zero <= k) {
+                int len = r - l + 1;
+                maxLen = Math.max(maxLen,len);
+            }
             r++;
         }
         return maxLen;
+
     }
 }
