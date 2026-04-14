@@ -6,7 +6,6 @@ class Solution {
         
         int[] chr = new int[256];
         Arrays.fill(chr, -1);
-        
         int left = 0, maxLen = 0;
         
         for(int right = 0; right < n; right++){
@@ -18,8 +17,7 @@ class Solution {
             chr[c] = right;
             int len = right - left + 1;
             maxLen = Math.max(maxLen, len);
-        }
-        
+        }  
         return maxLen;
     }
 }
