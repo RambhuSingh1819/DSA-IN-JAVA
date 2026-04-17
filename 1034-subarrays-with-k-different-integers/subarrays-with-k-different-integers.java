@@ -1,21 +1,21 @@
 class Solution {
     public int subarraysWithKDistinct(int[] nums, int k) {
-        return AtMost(nums,k)-AtMost(nums,k-1);
+        return solution(nums,k)-solution(nums,k-1);
+        
     }
-    private int AtMost(int []nums,int k){
-        int left=0;
-        int count=0;
-        int []freq=new int[nums.length+1];
-        for(int right=0;right<nums.length;right++){
-            if(freq[nums[right]]==0)k--;
-            freq[nums[right]]++;
-            while(k<0){
-                freq[nums[left]]--;
-                if(freq[nums[left]]==0)k++;
-                left++;
+    public int  solution(int[] nums, int k){
+        int l = 0,r = 0,  cnt = 0;
+        Map<Integer,Integer> map = new HashMap<>();
+        while(r < nums.length){
+            map.put(nums[r],map.getOrDefault(nums[r],0)+1);
+            while(map.size() > k){
+                map.put(nums[l], map.get(nums[l]) - 1);
+               if(map.get(nums[l]) == 0)map.remove(nums[l]);
+               l++;
             }
-            count+=right-left+1;
+        cnt = cnt + (r-l+1);    
+            r++;
         }
-        return count;
+        return cnt;
     }
 }
