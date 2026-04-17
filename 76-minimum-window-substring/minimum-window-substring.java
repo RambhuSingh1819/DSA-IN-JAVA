@@ -47,8 +47,6 @@ class Solution {
             r++;
         }
 
-        return minLen == Integer.MAX_VALUE 
-                ? "" 
-                : s.substring(startIndex, startIndex + minLen);
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(startIndex, startIndex + minLen);
     }
 }
