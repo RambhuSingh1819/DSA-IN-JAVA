@@ -12,8 +12,8 @@ class Solution {
             for(int j = i * i; j < n; j += i) check[j] = true;
            }
         }
-        
-        for(int i = 0; i <= n / 2; i++){
+
+        for(int i = 2; i <= n / 2; i++){
             int y = n - i;
             if(!check[i] && !check[y]) list.add(Arrays.asList(i,y));
         }
