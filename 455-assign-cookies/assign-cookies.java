@@ -10,8 +10,8 @@ class Solution {
         
         int child = 0, cokies = 0;
         while(cokies < m && child < n){
-            if(g[child] <= s[cokies]) child++;
-            cokies++;
+            if(g[child] <= s[cokies]){ child++;cokies++;}
+           else  cokies++;
         }
         return child;
     }
