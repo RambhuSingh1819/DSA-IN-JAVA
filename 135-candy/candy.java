@@ -23,7 +23,6 @@ class Solution {
             }
             if(down > peak) sum += (down - peak);
         }
-return sum;
-        
+    return sum;   
     }
 }
