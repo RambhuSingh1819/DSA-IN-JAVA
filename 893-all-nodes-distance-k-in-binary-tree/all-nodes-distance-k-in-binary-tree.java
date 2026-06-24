@@ -26,6 +26,8 @@ class Solution {
         }
     }
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+        List<Integer> list = new ArrayList<>();
+        if(root == null) return list;
         Map<TreeNode, TreeNode> parent_track = new HashMap<>();
         markParents(root,parent_track,root);
         Map<TreeNode,Boolean> visited = new HashMap<>();
@@ -53,7 +55,7 @@ class Solution {
                 }
             }
         }
-        List<Integer> list = new ArrayList<>();
+        
         while(!q.isEmpty()){
             TreeNode curr = q.poll();
             list.add(curr.val);
