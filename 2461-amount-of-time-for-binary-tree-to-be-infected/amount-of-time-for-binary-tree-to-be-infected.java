@@ -14,67 +14,75 @@
  * }
  */
 class Solution {
-    public void parent_child(Map<TreeNode , TreeNode> map , TreeNode root){
-       if(root == null) return;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-        while(!q.isEmpty()){
-            TreeNode curr = q.poll();
-            if(curr.left != null){
-                q.offer(curr.left);
-                map.put(curr.left,curr);
-            }
-            if(curr.right != null) {
-                map.put(curr.right,curr);
-                q.offer(curr.right);
-            }
-            
-        }
-    }
 
     public int amountOfTime(TreeNode root, int start) {
-        int cnt = -1;
-        TreeNode target = rootIs(root,start);
-        if(target == null) return cnt;
-        Map<TreeNode , TreeNode > p_t = new HashMap<>();
-        parent_child(p_t,root);
-        Set<TreeNode> visited = new HashSet<>();
+        Map<TreeNode, TreeNode> parent = new HashMap<>();
+
+        TreeNode startNode = buildParent(root, parent, start);
+
         Queue<TreeNode> q = new LinkedList<>();
-        q.offer(target);
-        visited.add(target);
-        while(!q.isEmpty()){
+        Set<TreeNode> visited = new HashSet<>();
+
+        q.offer(startNode);
+        visited.add(startNode);
+
+        int time = -1;
+
+        while (!q.isEmpty()) {
             int size = q.size();
-            for(int i = 0; i < size;i++){
+
+            for (int i = 0; i < size; i++) {
                 TreeNode curr = q.poll();
 
-                if(curr.left != null && !visited.contains(curr.left)){
+                if (curr.left != null && visited.add(curr.left)) {
                     q.offer(curr.left);
-                    visited.add(curr.left);
                 }
-                if(curr.right != null && !visited.contains(curr.right)){
+
+                if (curr.right != null && visited.add(curr.right)) {
                     q.offer(curr.right);
-                    visited.add(curr.right);
                 }
-                if(p_t.get(curr) != null && !visited.contains(p_t.get(curr))){
-                    q.offer(p_t.get(curr));
-                    visited.add(p_t.get(curr));
+
+                TreeNode par = parent.get(curr);
+
+                if (par != null && visited.add(par)) {
+                    q.offer(par);
                 }
             }
-            cnt++;
+
+            time++;
         }
-        return cnt;   
+
+        return time;
     }
-    public TreeNode rootIs(TreeNode root,int start){
+
+    private TreeNode buildParent(
+            TreeNode root,
+            Map<TreeNode, TreeNode> parent,
+            int start) {
+
         Queue<TreeNode> q = new LinkedList<>();
         q.offer(root);
-        while(!q.isEmpty()){
+
+        TreeNode startNode = null;
+
+        while (!q.isEmpty()) {
             TreeNode curr = q.poll();
-            if(curr.val == start) return curr;
-            if(curr.left != null){
+
+            if (curr.val == start) {
+                startNode = curr;
+            }
+
+            if (curr.left != null) {
+                parent.put(curr.left, curr);
                 q.offer(curr.left);
             }
-            if(curr.right != null) q.offer(curr.right);
+
+            if (curr.right != null) {
+                parent.put(curr.right, curr);
+                q.offer(curr.right);
+            }
         }
-        return null;
+
+        return startNode;
     }
 }
