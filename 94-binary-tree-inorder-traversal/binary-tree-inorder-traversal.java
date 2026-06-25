@@ -15,7 +15,11 @@
  */
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> list = new ArrayList<>();
+       /* 
+
+    ITERATIVE TRAVERSALS 
+       
+       List<Integer> list = new ArrayList<>();
         if(root == null) return list;
         Stack<TreeNode> stk = new Stack<>();
         TreeNode curr = root;
@@ -29,5 +33,37 @@ class Solution {
             curr = curr.right;
         }
         return list;
+        */
+
+    //RECURSIVE TRAVERSAL
+    List<Integer> list = new ArrayList<>();
+    TreeNode curr = root;
+
+    while(curr != null){
+
+        if(curr.left == null){
+            list.add(curr.val);
+            curr = curr.right;
+        }
+        else{
+            TreeNode prev = curr.left;
+
+            while(prev.right != null && prev.right != curr){
+                prev = prev.right;
+            }
+
+            if(prev.right == null){
+                prev.right = curr;
+                curr = curr.left;
+            }
+            else{
+                prev.right = null;
+                list.add(curr.val);
+                curr = curr.right;
+            }
+        }
     }
+    return list;
+    }
+
 }
