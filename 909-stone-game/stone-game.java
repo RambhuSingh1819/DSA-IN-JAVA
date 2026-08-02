@@ -1,9 +1,10 @@
 class Solution {
     public boolean stoneGame(int[] piles) {
-        int n = piles.length;
-        Integer[][] dp = new Integer[n][n];
+       // int n = piles.length;
+       // Integer[][] dp = new Integer[n][n];
 
-        return solve(piles, 0, n - 1, dp) > 0;
+       // return solve(piles, 0, n - 1, dp) > 0;
+       return true;
     }
     private int solve(int[] nums, int i, int j, Integer[][] dp) {
         if (i == j)
