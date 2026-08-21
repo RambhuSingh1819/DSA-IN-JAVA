@@ -5,9 +5,20 @@ class Solution {
         for(int ele : nums) sum += ele;
         if(sum % 2 != 0) return false;
         int target = sum/2;
-        int[][] dp = new int[n][target+1];
-        for(int[] row : dp) Arrays.fill(row,-1);
-        return solve(n-1,nums,target,dp);
+        // int[][] dp = new int[n][target+1];
+        // for(int[] row : dp) Arrays.fill(row,-1);
+        // return solve(n-1,nums,target,dp);
+        boolean[] dp = new boolean[target+1];
+        dp[0] = true;
+        if(nums[0] <= target) dp[nums[0]] = true;
+        for(int i = 1; i < n; i++){
+            for(int j = target; j >= nums[i]; j--){
+                boolean notTake = dp[j];
+                boolean take = dp[j - nums[i]];
+                dp[j] = take || notTake;
+            }
+        }
+        return dp[target];
     }
     public boolean solve(int idx, int[] nums, int k, int[][] dp){
         if(k == 0) return true;
