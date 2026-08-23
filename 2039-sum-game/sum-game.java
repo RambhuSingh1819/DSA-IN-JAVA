@@ -1,27 +1,37 @@
 class Solution {
     public boolean sumGame(String num) {
         int n = num.length();
-        int sumDiff = 0;
-        int qDiff = 0;
+
+        int leftSum = 0;
+        int rightSum = 0;
+        int leftQMark = 0;
+        int rightQMark = 0;
 
         for (int i = 0; i < n; i++) {
-            int sign = (i < n / 2) ? 1 : -1;
             char ch = num.charAt(i);
-
             if (ch == '?') {
-                qDiff += sign;
+                if (i < n / 2) {
+                    leftQMark++;
+                } else {
+                    rightQMark++;
+                }
             } else {
-                sumDiff += sign * (ch - '0');
+                if (i < n / 2) {
+                    leftSum += ch - '0';
+                } else {
+                    rightSum += ch - '0';
+                }
             }
         }
 
-        // If the difference in '?' count is odd, Alice gets the last move and can always win
-        if ((qDiff & 1) != 0) {
-            return true;
-        }
+        // If total '?' is odd, Alice gets the last move and guarantees a win
+        int totalQ = leftQMark + rightQMark;
+        if (totalQ % 2 == 1) return true;
 
-        // For Bob to win, each pair of '?' on the unbalanced side must contribute an average sum of 9
-        // sumDiff + (qDiff / 2) * 9 must equal 0
-        return sumDiff + (qDiff / 2) * 9 != 0;
+        // Bob wins if and only if: 2 * (leftSum - rightSum) == 9 * (rightQMark - leftQMark)
+        int LEFT = 2 * leftSum + 9 * leftQMark;
+        int RIGHT = 2 * rightSum + 9 * rightQMark;
+
+        return LEFT != RIGHT;
     }
 }
