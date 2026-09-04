@@ -11,11 +11,10 @@ class Solution {
             max = Math.max(nums[i],max);
             nums[i] = max;
         }
-        int ans = -1;
         for(int i = 0; i < n; i++){
             int val = nums[i] - min[i];
             if(val <= k) return i;
         }
-        return ans;
+        return -1;
     }
 }
