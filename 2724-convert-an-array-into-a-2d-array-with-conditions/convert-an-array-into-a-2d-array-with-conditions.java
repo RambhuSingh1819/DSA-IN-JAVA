@@ -13,8 +13,9 @@ class Solution {
         for (int i = 1; i <= maxFreq; i++) {
             List<Integer> list = new ArrayList<>();
             for (Integer key : map.keySet()) {
-                if (map.get(key) >= i) {
+                if (map.get(key) > 0) {
                     list.add(key);
+                    map.put(key, map.get(key) - 1);
                 }
             }
             ans.add(list);
