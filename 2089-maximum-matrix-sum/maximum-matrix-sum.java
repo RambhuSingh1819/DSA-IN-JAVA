@@ -5,9 +5,8 @@ class Solution {
         long sum = 0;
         int negativeCnt = 0;
 
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < n; j++){
-                int val = matrix[i][j];
+        for(int[] ele : matrix){
+            for(int val : ele){
                 sum += Math.abs(val);
                 minVal = Math.min(minVal,Math.abs(val));
                 if(val < 0) negativeCnt++;
