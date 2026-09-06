@@ -1,3 +1,8 @@
+/*
+    MEMORIZTION METHOD
+    T.C = O(N*M);
+    S.C = O(N*M)+O(M+N);
+ */
 /*class Solution {
     public int numDistinct(String s, String t) {
         int n = s.length();
@@ -23,7 +28,11 @@
 }
 */
 
-class Solution {
+// TABULATION METHOD(
+    //T.C = O(N*M)
+    //SC = O(N*M)
+//)
+/*class Solution {
     public int numDistinct(String s, String t) {
         int n = s.length();
         int m = t.length();
@@ -42,5 +51,30 @@ class Solution {
         }
         return dp[n][m];
 
+    }
+}
+*/
+class Solution {
+    public int numDistinct(String s, String t) {
+        int n = s.length();
+        int m = t.length();
+        if (m > n) return 0;
+        long[] prev = new long[m + 1];
+        prev[0] = 1;
+        for (int i = 1; i <= n; i++) {
+            long[] curr = new long[m + 1];
+            curr[0] = 1; // Empty string t can always be formed 1 way
+            
+            for (int j = 1; j <= m; j++) {
+                if (s.charAt(i - 1) == t.charAt(j - 1)) {
+                    curr[j] = prev[j - 1] + prev[j];
+                } else {
+                    curr[j] = prev[j];
+                }
+            }
+            prev = curr;
+        }
+
+        return (int) prev[m];
     }
 }
