@@ -1,3 +1,5 @@
+/*
+//USING DP 
 class Solution {
     public int maxProfit(int[] prices) {
         int n = prices.length;
@@ -25,5 +27,21 @@ class Solution {
             dp[idx][buy][cap] = ans;
         }
         return dp[idx][buy][cap];
+    }
+}
+*/
+class Solution {
+    public int maxProfit(int[] prices) {
+        int buy1 = Integer.MIN_VALUE;
+        int sell1 = 0;
+        int buy2 = Integer.MIN_VALUE;
+        int sell2 = 0;
+        for(int ele : prices){
+            buy1 = Math.max(-ele , buy1);
+            sell1 = Math.max(sell1,ele + buy1);
+            buy2 = Math.max(sell1-ele,buy2);
+            sell2 = Math.max(sell2,ele+buy2);
+        }
+        return sell2;
     }
 }
