@@ -1,5 +1,5 @@
 /*
-//APPROCH 1
+//APPROACH 1
 class Solution {
     public long countCommas(long n) {
         if(n < 999) return 0;
@@ -17,7 +17,7 @@ class Solution {
         return res;
     }
 }*/
-//APPROCH-2
+//APPROACH-2
 class Solution {
     public long countCommas(long n) {
         long result = 0;
