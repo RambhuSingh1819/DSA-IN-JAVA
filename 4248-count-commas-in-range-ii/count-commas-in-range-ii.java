@@ -1,3 +1,5 @@
+/*
+//APPROCH 1
 class Solution {
     public long countCommas(long n) {
         if(n < 999) return 0;
@@ -13,5 +15,17 @@ class Solution {
             comma ++;
         }
         return res;
+    }
+}*/
+//APPROCH-2
+class Solution {
+    public long countCommas(long n) {
+        long result = 0;
+        long lower = 1000;
+        while(lower <= n){
+            result += (n-lower+1);
+            lower *= 1000;
+        }
+        return result;
     }
 }
