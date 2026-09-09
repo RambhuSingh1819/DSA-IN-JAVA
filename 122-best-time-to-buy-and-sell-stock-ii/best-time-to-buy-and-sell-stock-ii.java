@@ -1,9 +1,19 @@
 class Solution {
     public int maxProfit(int[] prices) {
         int n = prices.length;
-        int[][] dp = new int[n][2];
-        for(int[] row : dp) Arrays.fill(row,-1);
-        return solve(0,1,n-1,prices,0,dp);
+        int[][] dp = new int[n+1][2];
+       // for(int[] row : dp) Arrays.fill(row,-1);
+        //return solve(0,1,n-1,prices,0,dp);
+        for(int i = n-1; i >= 0; i--){
+            for(int b = 0; b <= 1; b++){
+                if(b == 1){
+                    dp[i][b] = Math.max((-prices[i] + dp[i+1][0]),dp[i+1][1]);
+                }else{
+                    dp[i][b] = Math.max((prices[i] + dp[i+1][1]),dp[i+1][0]);
+                }
+            }
+        }
+        return dp[0][1];
     }
     public int solve(int idx,int isBuy, int n, int[] prices,int profit,int[][]dp){
 
