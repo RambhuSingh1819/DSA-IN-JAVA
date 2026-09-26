@@ -1,60 +1,45 @@
-class Pair{
-    int first;
-    int sec;
-    int tm;
-    Pair(int first,int sec , int tm){
-        this.first = first;
-        this.sec = sec;
-        this.tm = tm;
-    }
-}
 class Solution {
     public int orangesRotting(int[][] grid) {
         int n = grid.length;
         int m = grid[0].length;
-
-        Queue<Pair> q = new LinkedList<Pair>();
-
+        int fresh = 0;
+        Queue<int[]> q = new LinkedList<>();
         int[][] vis = new int[n][m];
-
-        int cntFrest = 0;
         for(int i = 0; i < n; i++){
             for(int j = 0; j < m; j++){
                 if(grid[i][j] == 2){
-                    q.add(new Pair(i,j,0));
                     vis[i][j] = 2;
-                }else{
-                    vis[i][j] = 0;
-                } 
-                if(grid[i][j]==1) cntFrest++;
+                    q.add(new int[]{i,j,0});
+                }
+                if(grid[i][j] == 1) fresh++;
             }
         }
-        int tm = 0;
-        int[] drow = {-1, 0, +1, 0};
-        int[] dcol = {0, +1, 0, -1};
 
+        int[] dr = {-1,0,1,0};
+        int[] dc = {0,1,0,-1};
         int cnt = 0;
+        int time = 0;
         while(!q.isEmpty()){
-           Pair p =  q.poll();
-           int r = p.first;
-           int c = p.sec;
-           int t = p.tm;
-
-           tm = Math.max(tm,t);
-            for(int i = 0; i < 4 ; i++){
-                int nrow = r + drow[i];
-                int ncol = c + dcol[i];
-
-                if(nrow >= 0 && nrow < n && ncol >=0 && ncol < m
-                    && vis[nrow][ncol] == 0 && grid[nrow][ncol] == 1){
-                        q.add(new Pair(nrow,ncol, t+1));
-                        vis[nrow][ncol] = 2;
+            int len = q.size();
+            for(int i = 0; i < len; i++){
+                int[] curr = q.poll();
+                int r = curr[0];
+                int c = curr[1];
+                int t = curr[2];
+                time = Math.max(time,t);
+                for(int k = 0; k < 4; k++){
+                    int nr = r + dr[k];
+                    int nc = c + dc[k];
+                    if(nr >= 0 && nr < n && nc >= 0 && nc < m && vis[nr][nc] == 0 && grid[nr][nc] == 1){
+                        vis[nr][nc] = 2;
+                        q.add(new int[]{nr,nc,t+1});
                         cnt++;
                     }
+                }
             }
         }
-        if(cnt != cntFrest) return -1;
-        return tm;
-       
+        if(cnt != fresh) return -1;
+        return time;    
+    
     }
 }
