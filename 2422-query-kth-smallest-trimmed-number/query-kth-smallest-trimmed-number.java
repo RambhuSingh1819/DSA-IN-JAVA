@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Solution {
     public int[] smallestTrimmedNumbers(String[] nums, int[][] queries) {
         int n = nums.length;
