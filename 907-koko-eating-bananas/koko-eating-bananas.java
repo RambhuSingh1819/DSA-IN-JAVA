@@ -1,32 +1,25 @@
 class Solution {
-    public boolean isPossible(int mid, int[] arr, int h){
-        long hours = 0;
-        int n = arr.length;
-        for(int i=0;i<n;i++){
-            hours += (arr[i] + mid - 1) / mid; 
-        if(hours>h) return false;
+    public int minEatingSpeed(int[] piles, int h) {
+        int low = 1;
+        int high = Integer.MIN_VALUE;
+        for(int i = 0; i < piles.length; i++){
+            high = Math.max(high,piles[i]);
         }
-        return true;
+        int ans = -1;
+        while(low < high){
+            int mid = low + (high - low) / 2;
+            if(isPossible(piles,mid,h)){
+                high = mid;
+            }else low = mid + 1;
+        }
+        return low;  
     }
-    public int minEatingSpeed(int[] arr, int h) {
-        int n = arr.length;
-        int lo = 1;
-        int hi = Integer.MIN_VALUE;
-        
-        for(int i=0;i<n;i++){
-            hi = Math.max(hi,arr[i]);
+    public boolean isPossible(int nums[],int mid , int k){
+        int hrs = 0;
+        for(int ele : nums){
+            hrs += (ele + mid -1)/mid;
         }
-        int ans = hi;
-        while(lo<=hi){
-            int mid = lo +(hi-lo)/2;
-            if(isPossible(mid,arr,h)){
-                ans = mid;
-                hi = mid-1;
-            }
-            else{
-                lo = mid+1;
-            }
-        }
-        return ans;
+        if(hrs > k) return false;
+        else return true;
     }
 }
