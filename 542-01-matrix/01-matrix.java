@@ -1,42 +1,29 @@
-import java.util.LinkedList;
-import java.util.Queue;
-
 class Solution {
     public int[][] updateMatrix(int[][] mat) {
-        int m = mat.length;
-        int n = mat[0].length;
-        Queue<int[]> queue = new LinkedList<>();
-
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (mat[i][j] == 0) {
-                    queue.offer(new int[]{i, j});
-                } else {
-                    mat[i][j] = Integer.MAX_VALUE;
+        int n = mat.length;
+        int m = mat[0].length;
+        Queue<int[]> q = new LinkedList<>();
+        int[][] dir = {{-1,0},{1,0},{0,-1},{0,1}};
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j <m; j++){
+                if(mat[i][j] == 0){
+                    q.add(new int[]{i,j});
+                }else mat[i][j] = -1;
+            }
+        }
+        while(!q.isEmpty()){
+            int[] curr = q.poll();
+            int row = curr[0];
+            int col = curr[1];
+            for(int[] dr : dir){
+                int nr = row+ dr[0];
+                int nc = col + dr[1];
+                if(nr >= 0 && nr < n && nc >= 0 && nc < m && mat[nr][nc] == -1){
+                    mat[nr][nc] = mat[row][col]+1;
+                    q.add(new int[]{nr,nc});
                 }
             }
         }
-        
-        int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-        
-        while (!queue.isEmpty()) {
-            int[] cell = queue.poll();
-            int r = cell[0];
-            int c = cell[1];
-            
-            for (int[] dir : dirs) {
-                int nr = r + dir[0];
-                int nc = c + dir[1];
-                
-                if (nr >= 0 && nr < m && nc >= 0 && nc < n) {
-                    if (mat[nr][nc] > mat[r][c] + 1) {
-                        mat[nr][nc] = mat[r][c] + 1;
-                        queue.offer(new int[]{nr, nc});
-                    }
-                }
-            }
-        }
-        
         return mat;
     }
 }
